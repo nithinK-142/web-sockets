@@ -34,8 +34,8 @@
         console.log("Response", event.data);
         const parsedData = JSON.parse(event.data.toString());
         const li = document.createElement('li')
-        li.innerHTML = parsedData.message
-        messageList.append(li)
+        li.textContent = parsedData.message
+        messageList.appendChild(li)
     };
 </script>
 
