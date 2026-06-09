@@ -22,6 +22,7 @@
 
     function sendMessage() {
         connection.send(JSON.stringify({ message: messageInput.value }));
+        messageInput.value = "";
     }
 
     sendButton.addEventListener("click", sendMessage);
