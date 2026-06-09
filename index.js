@@ -18,7 +18,9 @@ wsServer.on('connection', (ws) => {
     ws.on('message', (data) => {
         const parsedData = JSON.parse(data.toString());
         console.log('Received message:', parsedData);
-        ws.send(JSON.stringify({ message: parsedData.message + " " + new Date() }));
+        wsServer.clients.forEach(client => {
+            client.send(JSON.stringify({ message: parsedData.message + " " + new Date() }))
+        })
     });
 });
 
