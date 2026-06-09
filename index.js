@@ -31,6 +31,10 @@ wsServer.on('connection', (ws) => {
         const parsedData = JSON.parse(data.toString());
         await redisPublisher.publish(REDIS_CHANNEL, JSON.stringify({ message: parsedData.message }))
     });
+    ws.on('close', () => {
+        console.log('Client disconnected');
+        console.log('Current clients', wsServer.clients.size);
+    });
 });
 
 httpServer.listen(PORT, () => {
