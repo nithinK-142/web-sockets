@@ -14,9 +14,12 @@ const httpServer = http.createServer(async (req, res) => {
 const wsServer = new WebSocketServer({ server: httpServer });
 
 wsServer.on('connection', (ws) => {
-    console.log(ws);
-    console.log("websocket connection established")
-})
+    console.log('websocket connection established');
+    ws.on('message', (data) => {
+        console.log(data.toString());
+        ws.send("hello client");
+    });
+});
 
 httpServer.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
