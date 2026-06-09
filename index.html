@@ -9,11 +9,34 @@
 
 <body>
     <h1>Web Sockets</h1>
+    <input type="text" value="hello" id="message-input" placeholder="Enter your message" />
+    <button id="message-send-button">Send</button>
+    <ul id="message-list"></ul>
 </body>
 <script>
-    const connection = new WebSocket(`ws://localhost:${window.location.port}`)
-    connection.onopen = () => connection.send("hello server")
-    connection.onmessage = (message) => console.log(message)
+    const messageInput = document.getElementById("message-input");
+    const sendButton = document.getElementById("message-send-button");
+    const messageList = document.getElementById("message-list");
+
+    const connection = new WebSocket(`ws://localhost:${window.location.port}`);
+
+    function sendMessage() {
+        connection.send(JSON.stringify({ message: messageInput.value }));
+    }
+
+    sendButton.addEventListener("click", sendMessage);
+
+    connection.onopen = () => {
+        console.log("Connected");
+    };
+
+    connection.onmessage = (event) => {
+        console.log("Response", event.data);
+        const parsedData = JSON.parse(event.data.toString());
+        const li = document.createElement('li')
+        li.innerHTML = parsedData.message
+        messageList.append(li)
+    };
 </script>
 
 </html>
