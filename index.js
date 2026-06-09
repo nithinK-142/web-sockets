@@ -15,6 +15,7 @@ const wsServer = new WebSocketServer({ server: httpServer });
 
 wsServer.on('connection', (ws) => {
     console.log('websocket connection established');
+    console.log('Current clients', wsServer.clients.size);
     ws.on('message', (data) => {
         const parsedData = JSON.parse(data.toString());
         console.log('Received message:', parsedData);
