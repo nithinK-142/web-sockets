@@ -1,6 +1,8 @@
 {
     "scripts": {
-        "dev": "node index.js --watch"
+        "dev": "node --watch index.js"
     },
-    "dependencies": {}
+    "dependencies": {
+        "ws": "^8.21.0"
+    }
 }
